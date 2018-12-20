@@ -1,0 +1,36 @@
+﻿<link href="~/css/workout.css" rel="stylesheet" />
+@model Workout
+
+<div id="center">
+    <div class="gymBackground">
+        <h2 style="margin-top:0px; padding-top:15px; padding-bottom:10px">New Workout</h2>
+
+        <form asp-controller="Gym" asp-action="AddWorkout" method="post">
+            <label asp-for="Name">Workout Name: </label>
+            <select asp-for="Name" asp-items="WebApplication.Web.Models.Workout.WorkoutNames"></select>
+            <br /><br />
+            <label asp-for="Type">Workout Type: </label>
+            <select asp-for="Type" asp-items="WebApplication.Web.Models.Workout.WorkoutCategories"></select>
+            <br /><br />
+            <label asp-for="EquipmentID">Equipment used: </label>
+            <select asp-for="EquipmentID" asp-items="WebApplication.Web.Models.Equipment.EquipmentIds"></select>
+            <br /><br />
+            <label asp-for="startTime">Start Time: </label>
+            <input asp-for="startTime" type="time" />
+            <br /><br />
+            <label asp-for="endTime">End Time: </label>
+            <input asp-for="endTime" type="time" />
+            <br /><br />
+            <label asp-for="Weight">Weight: </label>
+            <input asp-for="Weight" type="number" />
+            <br /><br />
+            <label asp-for="Reps">Reps/Distance in Miles: </label>
+            <input asp-for="Reps" type="number" />
+            <br /><br />
+            <input asp-for="VisitID" value="@Model.VisitID" hidden="hidden" />
+            <input asp-for="UserId" value="@Model.UserId" hidden="hidden" />
+
+            <input type="submit" value="Work It!" style="color:black" />
+        </form>
+    </div>
+</div>

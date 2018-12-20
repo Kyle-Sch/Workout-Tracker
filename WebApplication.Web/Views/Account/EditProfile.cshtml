@@ -1,0 +1,65 @@
+﻿<link href="~/css/workout.css" rel="stylesheet" />
+@model User
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div id="center">
+    <div class="profileBackground">
+        <h2 style="margin-top:0px;padding-top:15px">Edit Profile</h2>
+
+        <form asp-controller="Account" asp-action="EditProfile" method="post">
+            <label asp-for="name" hidden="hidden">Name: </label>
+            <input asp-for="name" type="text" hidden="hidden" />
+
+            <label asp-for="Username">Username/Email: </label>
+            <input asp-for="Username" type="text" />
+            <br /><br />
+            <label asp-for="FirstName">FirstName: </label>
+            <input asp-for="FirstName" type="text" />
+            <br /><br />
+            <label asp-for="LastName">LastName: </label>
+            <input asp-for="LastName" type="text" />
+            <br /><br />
+            <label asp-for="GoalType">Workout Goals: </label>
+            <select asp-for="GoalType" asp-items="WebApplication.Web.Models.Workout.GoalTypes"></select>
+            <br /><br />
+            <label asp-for="GoalReps">Workout Goal Reps/Miles: </label>
+            <select asp-for="GoalReps" asp-items="WebApplication.Web.Models.Workout.GoalReps"></select>
+            <br /><br />
+            <h3 style="margin-top:0px">Current Photo:</h3>
+            @{ if (Model.Photo != null)
+                {
+                    <img id="profilePic" class="profilePic" src="~/images/@Model.Photo" alt="User Photo" />
+                }
+                else
+                {
+                    <img id="profilePic" class="profilePic" src="~/images/default-user.jpg" alt="User Photo" />
+                }
+            }
+            <br /><br />
+            <label asp-for="Photo">Photo: </label>
+            <select id="setPic" asp-for="Photo" asp-items="WebApplication.Web.Models.User.PhotoCategories"></select>
+            <br /><br />
+            <input asp-for="Id" value="@Model.Id" hidden="hidden" />
+            <input asp-for="Salt" value="@Model.Salt" hidden="hidden" />
+            <input asp-for="Password" value="@Model.Password" hidden="hidden" />
+            <input asp-for="Role" value="@Model.Role" hidden="hidden" />
+
+            <input type="submit" value="Save" style="color:black" />
+        </form>
+        <div class="smallMargin">
+            <form asp-controller="Account" asp-action="ChangePassword" method="post">
+                <label asp-for="Password">Old Password:</label>
+                <input asp-for="Password" type="password" />
+                <label asp-for="NewPassword">New Password:</label>
+                <input asp-for="NewPassword" type="password" />
+                <input type="submit" value="Update Password" style="color:black" />
+            </form>
+        </div>
+        <form asp-controller="Account" asp-action="RemoveProfile" method="post">
+            <input asp-for="Id" value="@Model.Id" hidden="hidden" />
+            <input type="submit" value="Delete Profile" style="color:black; margin-bottom:15px" />
+    </form>
+</div>

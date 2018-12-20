@@ -1,0 +1,77 @@
+﻿<link href="~/css/workout.css" rel="stylesheet" />
+@model VisitMetricsModel
+
+<div class="gymBackground">
+    <div style="margin-left:15%; font-size:large">
+        <h1 style="margin-top:0px; margin-bottom:20px; padding-top:30px">Visit Metrics</h1>
+        <div style="display:inline-flex; margin-bottom:10px">
+            <b>Total number of visits</b><p>: @Model.Visits.Count</p>
+        </div>
+        <div>
+            <div style="display:inline-flex">
+                <b>Average visit length</b><p>:</p>
+            </div>
+            <div>
+                <ul>
+                    <li>
+                        @{
+                            if (Model.averageVisitTimeSpan.Days > 0)
+                            {
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;@Model.averageVisitTimeSpan.Days Days</div>
+                            }
+                            if (Model.averageVisitTimeSpan.Hours > 0)
+                            {
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;@Model.averageVisitTimeSpan.Hours Hours</div>
+                            }
+                            if (Model.averageVisitTimeSpan.Minutes > 0)
+                            {
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;@Model.averageVisitTimeSpan.Minutes Minutes</div>
+                            }
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;@Model.averageVisitTimeSpan.Seconds Seconds</div>
+                        }
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div style="display:inline-flex">
+            <b>A list of your visits</b><p>:</p>
+        </div>
+        <div>
+            <ul>
+                @{
+                    foreach (Visit visit in Model.Visits)
+                    {
+                        <li>
+                            <div style="margin-bottom:10px">
+                                @visit.Arrival.DayOfWeek @visit.Arrival.Month/@visit.Arrival.Day
+                                @{
+                                    if (visit.Departure.Subtract(visit.Arrival).Days > 1)
+                                    {
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;@visit.Departure.Subtract(visit.Arrival).Days Days</div>
+                                    }
+                                    if (visit.Departure.Subtract(visit.Arrival).Hours > 1)
+                                    {
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;@visit.Departure.Subtract(visit.Arrival).Hours Hours</div>
+                                    }
+                                    if (visit.Departure.Subtract(visit.Arrival).Minutes > 1)
+                                    {
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;@visit.Departure.Subtract(visit.Arrival).Minutes Minutes</div>
+                                    }
+                                    if (visit.Departure.Subtract(visit.Arrival).TotalMinutes < 1)
+                                    {
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;@visit.Departure.Subtract(visit.Arrival).TotalSeconds Seconds</div>
+                                    }
+                                    else
+                                    {
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;@visit.Departure.Subtract(visit.Arrival).Seconds Seconds</div>
+                                    }
+                                }
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>

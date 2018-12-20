@@ -1,0 +1,45 @@
+﻿<link href="~/css/workout.css" rel="stylesheet" />
+@model User
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div id="center">
+    <h2>Edit User</h2>
+
+    <form asp-controller="Account" asp-action="EditUser" method="post">
+        <label asp-for="name" hidden="hidden">Name: </label>
+        <input asp-for="name" type="text" hidden="hidden" />
+        <br /><br />
+        <label asp-for="Username">Username/Email: </label>
+        <input asp-for="Username" type="text" />
+        <br /><br />
+        <label asp-for="Password">Password: </label>
+        <input asp-for="Password" type="text" value="" />
+        <br /><br />
+        <label asp-for="Role">Role Category: </label>
+        <select asp-for="Role" asp-items="WebApplication.Web.Models.User.RoleCategories"></select>
+        <br /><br />
+        <label asp-for="GoalType">Workout Goal Type: </label>
+        <select asp-for="GoalType" asp-items="WebApplication.Web.Models.Workout.GoalTypes"></select>
+        <br /><br />
+        <label asp-for="GoalReps">Workout Goal Reps/Miles: </label>
+        <select asp-for="GoalReps" asp-items="WebApplication.Web.Models.Workout.GoalReps"></select>
+        <br /><br />
+
+        <label asp-for="workoutProfile">Workout Profile: </label>
+        <input asp-for="workoutProfile" type="text" />
+        <br /><br />
+        <label asp-for="Photo">Photo: </label>
+        <select asp-for="Photo" asp-items="WebApplication.Web.Models.User.PhotoCategories"></select>
+        <br /><br />
+        <input asp-for="Id" value="@Model.Id" hidden="hidden" />
+        <input asp-for="Salt" value="@Model.Salt" hidden="hidden" />
+        <input type="submit" value="Save" />
+    </form>
+    <form asp-controller="Account" asp-action="RemoveProfile" method="post">
+        <input asp-for="Id" value="@Model.Id" hidden="hidden" />
+        <input type="submit" value="Delete Profile" />
+    </form>
+</div>

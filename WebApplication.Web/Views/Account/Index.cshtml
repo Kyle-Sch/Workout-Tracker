@@ -1,0 +1,21 @@
+﻿<link href="~/css/workout.css" rel="stylesheet" />
+@model User
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>Lorem ipsum</p>
+@{
+    if (Model != null)
+    {
+        <p>@Model.Username is logged in</p>
+    }
+    else
+    {
+        <p>No one is logged in</p>
+    }
+}
+
+

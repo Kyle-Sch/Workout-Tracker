@@ -1,0 +1,32 @@
+﻿<link href="~/css/workout.css" rel="stylesheet" />
+@model Visit
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Equipment</h2>
+
+<p>Member Id: @Model.MemberId</p>
+<p>Arrival: @Model.Arrival</p>
+<p>Departure: @Model.Departure</p>
+
+@*<form asp-controller="Gym" asp-action="EditEquipment" method="get">
+        <input asp-for="Name" value="@Model.Name" hidden="hidden" />
+        <input type="submit" value="Edit" />
+    </form>*@
+
+@{
+    if (Model.Workouts.Count > 0)
+    {
+        <h2>Visit Metrics</h2>
+        for (int i = 0; i < Model.Workouts.Count; i++)
+        {
+            <p>@Model.Workouts[i].Name</p>
+            <p>@Model.Workouts[i].Type</p>
+            <p>@Model.Workouts[i].Reps</p>
+            <p>@Model.Workouts[i].Weight</p>
+            <p>@Model.Workouts[i].startTime</p>
+            <p>@Model.Workouts[i].endTime</p>
+        }
+    }
+}

@@ -1,0 +1,36 @@
+﻿<link href="/css/workout.css" rel="stylesheet" />
+<script src="/Scripts/jquery-3.1.1.js" defer></script>
+<script src="/Scripts/jquery.validate.js" defer></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.js" defer></script>
+<script src="/Scripts/validation.js" defer></script>
+@using WebApplication.Web.Models.Account;
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="welcome" id="center">
+    <div >
+        <h1 class="pageTitle" style="margin-bottom:20px; margin-top:0px; padding-top:10px;">Register</h1>
+
+        <form id="register" asp-controller="account" asp-action="register" method="post">
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input style="color:black" asp-for="Email" placeholder="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input style="color:black" type="password" asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input style="color:black" type="password" asp-for="ConfirmPassword" />
+                <span asp-validation-for="ConfirmPassword"></span>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+</div>

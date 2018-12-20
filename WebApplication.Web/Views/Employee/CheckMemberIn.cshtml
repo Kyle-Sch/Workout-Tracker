@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CheckMemberInOutModel
+
+<div>
+    @{
+        //User output = new User();
+        for(int i = 0; i < Model.Users.Count; i++)
+        {
+            <div>
+                <span>@Model.Users[i].Username</span>
+                
+                    <form style="display:inline" asp-controller="Employee" asp-action="CheckMemberIn" method="post">
+                        <label asp-for="@Model.ToBeChecked.Id" hidden></label>
+                        <input asp-for="@Model.ToBeChecked.Id" value="@Model.Users[i].Id" hidden />
+                        
+                        <label asp-for="@Model.ToBeChecked.Username" hidden></label>
+                        <input asp-for="@Model.ToBeChecked.Username" value="@Model.Users[i].Username" hidden/>
+                        <button type="submit" class="btn btn-default">Check Member In</button>
+                    </form>
+                
+            </div>
+        }
+
+    }
+</div>

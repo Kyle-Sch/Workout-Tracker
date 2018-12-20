@@ -1,0 +1,37 @@
+﻿<link href="~/css/workout.css" rel="stylesheet" />
+@model bool
+<div id="center">
+    <div class="gymBackground">
+        <div style="padding-top:10px">
+            <h2 style="margin-top:0px">Back on the workout grind?</h2>
+            <h5 style="margin-bottom:30px; margin-top:0px">Log it here!</h5>
+        </div>
+        <div style="color:black">
+            @{
+                if (Model)
+                {
+                    <div style="display:inline-flex">
+                        <form asp-controller="Gym" asp-action="AddWorkout" method="get">
+                            <input type="submit" value="Add New Workout" style="height:30px; width:200px" />
+                        </form>
+                        <form asp-controller="Gym" asp-action="CheckOut" method="post">
+                            <input type="submit" value="Check Out" style="height:30px; width:100px" />
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <form asp-controller="Gym" asp-action="CheckIn" method="post">
+                        <input type="submit" value="Check In" class="workoutButton" />
+                    </form>
+                }
+                <form asp-controller="Gym" asp-action="EquipmentAssistance" method="get">
+                    <input type="submit" value="Equipment Assistance" class="workoutButton" />
+                </form>
+                <form asp-controller="Gym" asp-action="Metrics" method="get">
+                    <input type="submit" value="View Visit Metrics" class="workoutButton" />
+                </form>
+            }
+        </div>
+    </div>
+</div>

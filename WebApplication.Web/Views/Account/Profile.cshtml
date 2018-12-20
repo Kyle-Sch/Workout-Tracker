@@ -1,0 +1,67 @@
+﻿<link href="~/css/workout.css" rel="stylesheet" />
+@model User
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="center" style="font-size:large">
+    <div class="profileBackground">
+        <div>
+            <h2 style="margin-top:0px;padding-top:15px">User Profile</h2>
+            @{ if (Model.Photo != null)
+                {
+                    <img class="profilePic" src="~/images/@Model.Photo" alt="User Photo" />
+                }
+                else
+                {
+                    <img class="profilePic" src="~/images/default-user.jpg" alt="User Photo" />
+                }
+            }
+            <p>Welcome @Model.FirstName @Model.LastName</p>
+            <p>Username/Email: @Model.Username</p>
+            <p>Role: @Model.Role</p>
+            <p>Workout Goal Type: @Model.GoalType</p>
+            <p>Workout Goal Reps/miles: @Model.GoalReps</p>
+
+            <form asp-controller="Account" asp-action="EditProfile" method="get">
+                <input asp-for="Username" value="@Model.Username" hidden="hidden" />
+                <input type="submit" value="Edit" style="margin-bottom:15px; color:black" />
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-sm-1"></div>
+            <div class="col-lg-3 col-sm-12">
+                @{
+                    if (Model.Workouts.Count > 0)
+                    {
+                        <h2>Member Workout Profile</h2>
+                        <p>Workout Goal Type: @Model.GoalType</p>
+                        <p>Workout Goal Reps/Miles: @Model.GoalReps</p>
+                        <p>Total Workout Type: @Model.TotalWorkout.Type</p>
+                        <p>Total Workout Reps: @Model.TotalWorkout.TotalReps</p>
+                        <p>----------------------------------</p>
+                    }
+                }
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                @{
+                    if (Model.Workouts.Count > 0)
+                    {
+                        <h2>Member Workout Metrics</h2>
+                        for (int i = 0; i < Model.Workouts.Count; i++)
+                        {
+                            <p>Name: @Model.Workouts[i].Name</p>
+                            <p>Type: @Model.Workouts[i].Type</p>
+                            <p>Reps/Miles: @Model.Workouts[i].Reps</p>
+                            <p>Weight: @Model.Workouts[i].Weight</p>
+                            <p>Start Time: @Model.Workouts[i].startTime</p>
+                            <p>End Time: @Model.Workouts[i].endTime</p>
+                            <p>----------------------------------</p>
+                        }
+                    }
+                }
+            </div>
+            <div class="col-lg-3 col-sm-1"></div>
+        </div>
+    </div>
+</div>

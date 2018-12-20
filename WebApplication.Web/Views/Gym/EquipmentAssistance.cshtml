@@ -1,0 +1,28 @@
+﻿<link href="~/css/workout.css" rel="stylesheet" />
+@model List<Equipment>
+@{
+    ViewData["Title"] = "EquipmentAssistance";
+}
+
+<div id="center" class="pageTitle" style="margin-left:20px; margin-right:20px">
+    <h2>Equipment Assistance</h2>
+    <p style="margin-bottom:20px">Here are instructions on how to properly use each piece of gym equipment</p>
+    <hr style="margin-bottom:30px; height:0.1em; max-width:800px" />
+    <div class="row">
+        @{
+            foreach (Equipment machine in Model)
+            {
+                if (machine.Name != "None")
+                {
+
+                    <div class="col-lg-4 col-sm-12">
+                        <b style="display:block">@machine.Name</b>
+                        <hr style="margin-bottom:15px; margin-top:2px; height:1px; max-width:100px" />
+                        <img class="equipment" src="~/images/@machine.FormMedia" />
+                        <p>Instructions:</p><p style="font-size:small">@machine.Instructions</p>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>

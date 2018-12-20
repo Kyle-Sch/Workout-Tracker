@@ -1,0 +1,24 @@
+﻿<link href="~/css/workout.css" rel="stylesheet" />
+@model Equipment
+
+<div id="center">
+    @{
+        if (Model.EquipList.Count > 0)
+        {
+            <h2>Equipment Metrics</h2>
+            for (int i = 0; i < Model.EquipList.Count; i++)
+            {
+                <img style="width:25%;height:auto" src="~/images/@Model.EquipList[i].FormMedia" alt="User Photo" />
+                <p>Equipment Name: @Model.EquipList[i].Name</p>
+                <p>Equipment Id: @Model.EquipList[i].EquipmentID</p>
+                <p>Maintenance Required?: @Model.EquipList[i].NeedsMaintenance</p>
+                <p>Instructions: @Model.EquipList[i].Instructions</p>
+                <form asp-controller="Gym" asp-action="EquipmentDetail" method="post">
+                    <input asp-for="EquipmentID" value="@Model.EquipList[i].EquipmentID" hidden="hidden" />
+                    <input type="submit" value="Select" />
+                </form>
+                <br />
+            }
+        }
+    }
+</div>

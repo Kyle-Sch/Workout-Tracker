@@ -1,0 +1,30 @@
+﻿@model User
+@{
+    ViewData["Title"] = "_Navbar";
+}
+
+
+@if (Model == null)
+{
+    <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+    <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+}
+else
+{
+    <li><a asp-area="" asp-controller="Classes" asp-action="ClassList">Classes</a></li>
+    <li><a asp-area="" asp-controller="Gym" asp-action="Index">Gym</a></li>
+    <li><a asp-area="" asp-controller="Account" asp-action="Profile">Profile</a></li>
+    <li><a asp-area="" asp-controller="Account" asp-action="Index">Welcome @Model.Username</a></li>
+    if (Model.Role == "admin")
+    {
+        <li><a asp-area="" asp-controller="Account" asp-action="UserList">Users</a></li>
+        <li><a asp-area="" asp-controller="Gym" asp-action="EquipList">Equipment</a></li>
+        <li><a asp-area="" asp-controller="Administrator" asp-action="Index">Admin</a></li>
+    }
+    if (Model.Role == "employee" || Model.Role == "admin")
+    {
+        <li><a asp-area="" asp-controller="Employee" asp-action="Index">Employee</a></li>
+    }
+    <li><a asp-area="" asp-controller="Account" asp-action="Logoff">Logout</a></li>
+}
+

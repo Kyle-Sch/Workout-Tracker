@@ -1,0 +1,146 @@
+﻿body {
+    background-color: lightgray;
+}
+
+hr {
+    background-color: darkgreen;
+    color: darkgreen;
+    border: none;
+}
+
+#navBar {
+    background-color:darkgreen;
+    border: none;
+}
+
+#blue {
+    background-color: cornflowerblue;
+    color: cornflowerblue;
+}
+
+#center {
+    text-align: center;
+}
+
+.welcome {
+    background-image: url('/images/welcomeimage.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, serif;
+    width: 100%;
+    min-height:950px;
+    background-attachment: fixed;
+}
+
+@media only screen and (max-width: 815px) {
+    .welcome {
+        background-image: url('/images/mobilewelcomeimage.jpg');
+        background-size: cover;
+        color: white;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, serif;
+        width: 100%;
+        background-attachment: fixed;
+    }
+}
+
+.pageTitle {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, serif;
+}
+
+.workoutButton {
+    height: 30px;
+    width: 300px;
+}
+
+.gymBackground {
+    background-image: url('/images/gymbackground.jpg');
+    background-size: cover;
+    background-position-x: 60%;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, serif;
+    width: 100%;
+    min-height: 900px;
+    background-attachment: fixed;
+}
+
+@media only screen and (max-width: 600px) {
+    .gymBackground {
+        background-image: url('/images/mobilegymbackground.jpg');
+        background-size: cover;
+        background-position-y: top;
+        background-position-x: left;
+        color: white;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, serif;
+        width: 100%;
+        min-height: 900px;
+        background-attachment: fixed;
+    }
+}
+
+*:before {
+    content: none;
+}
+
+.equipment {
+    width: 350px;
+    height: auto;
+    border: 5px groove cornflowerblue;
+    margin-bottom: 8px;
+}
+
+.classesBackground {
+    background-image: url('/images/classesbackground.jpg');
+    background-size: cover;
+    background-position-x: 60%;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, serif;
+    width: 100%;
+    min-height: 900px;
+    background-attachment: fixed;
+}
+
+@media only screen and (max-width: 600px) {
+    .classesBackground {
+        background-image: url('/images/mobileclassesbackground.jpg');
+        background-size: cover;
+        background-position-y: top;
+        background-position-x: left;
+        color: white;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, serif;
+        width: 100%;
+        min-height: 900px;
+        background-attachment: fixed;
+    }
+}
+
+.profilePic {
+    width: 20%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    border: 5px double cornflowerblue;
+    background-color:darkgray;
+}
+
+.profileBackground {
+    background-image: url('/images/profilebackground.jpg');
+    background-size: cover;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, serif;
+    width: 100%;
+    min-height: 900px;
+    background-attachment: fixed;
+}
+
+@media only screen and (max-width: 600px) {
+    .profileBackground {
+        background-image: url('/images/mobileprofilebackground.jpg');
+        background-size: cover;
+        color: white;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, serif;
+        width: 100%;
+        min-height: 900px;
+        background-attachment: fixed;
+    }
+}

@@ -1,0 +1,46 @@
+﻿<link href="~/css/workout.css" rel="stylesheet" />
+@model User
+
+
+<div id="center">
+    @{
+        if (Model.UserList.Count > 0)
+        {
+            <h2>Users List</h2>
+            for (int i = 0; i < Model.UserList.Count; i++)
+            {
+                if (Model.UserList[i].Photo != null)
+                {
+                    <img style="width:25%;height:auto" src="~/images/@Model.UserList[i].Photo" alt="User Photo" />
+                }
+                else
+                {
+                    <img style="width:25%;height:auto" src="~/images/default-user.jpg" alt="User Photo" />
+                }
+                <br />
+                <p>Email/Username: @Model.UserList[i].Username</p>
+                <p>Password: </p>
+                <form asp-controller="Account" asp-action="ChangePassword" method="post">
+                    <input asp-for="Username" value="@Model.UserList[i].Username" hidden="hidden" />
+                    <input type="submit" value="Change Password" />
+                </form>
+                <p>Role: @Model.UserList[i].Role</p>
+
+                if (Model.Workouts.Count > 0)
+                {
+                    <h2>Member Workout Profile</h2>
+                    <p>Workout Goal Type: @Model.GoalType</p>
+                    <p>Workout Goal Reps/miles: @Model.GoalReps</p>
+                    <p>Total Workout Type: @Model.TotalWorkout.Type</p>
+                    <p>Total Workout Reps: @Model.TotalWorkout.TotalReps</p>
+                    <p>----------------------------------</p>
+                }
+                <form asp-controller="Account" asp-action="EditUserList" method="post">
+                    <input asp-for="Username" value="@Model.UserList[i].Username" hidden="hidden" />
+                    <input type="submit" value="Select" />
+                </form>
+                <br />
+            }
+        }
+    }
+</div>

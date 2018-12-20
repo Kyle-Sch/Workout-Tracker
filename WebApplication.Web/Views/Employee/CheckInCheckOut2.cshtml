@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model MemberToBeCheckInOut
+@{
+
+    if (Model != null)
+    {
+        if (Model.IsCheckedIn)
+        {
+            <form asp-controller="Employee" asp-action="CheckOut" method="post">
+                <input asp-for="UserEmail" value="@Model.UserEmail" hidden />
+                <input asp-for="UserId" value="@Model.UserId" hidden />
+                <button type="submit" class="btn btn-default">Check Them Out</button>
+            </form>
+        }
+        else
+        {
+            <form asp-controller="Employee" asp-action="CheckIn" method="post">
+                <input asp-for="UserEmail" value="@Model.UserEmail" hidden />
+                <input asp-for="UserId" value="@Model.UserId" hidden />
+                <button type="submit" class="btn btn-default">Check Them In</button>
+            </form>
+        }
+    }
+}
+
+

@@ -1,0 +1,25 @@
+﻿@model WorkoutClass
+<div id="center">
+    <div class="classesBackground">
+        @{
+            if (Model.Classes.Count > 0)
+            {
+                <h2 style="margin-top:0px; padding-top:10px">Workout Classes</h2>
+                for (int i = 0; i < Model.Classes.Count; i++)
+                {
+                    <br />
+                    <p>Name: @Model.Classes[i].Name</p>
+                    <p>Available Spots: @Model.Classes[i].AvailableSpots</p>
+                    <p>Class Start: @Model.Classes[i].StartTime</p>
+                    <p>Class End: @Model.Classes[i].EndTime</p>
+                    <p>Description: @Model.Classes[i].Description</p>
+                    <p>----------------------------------</p>
+                }
+            }
+            @*<form asp-controller="Classes" asp-action="ClassDetail" method="post">
+                    <input asp-for="classId" value="@Model.Classes[i].classId" hidden="hidden" />
+                    <input type="submit" value="Select" />
+                </form>*@
+        }
+    </div>
+</div>

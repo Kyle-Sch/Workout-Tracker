@@ -1,0 +1,33 @@
+﻿<link href="~/css/workout.css" rel="stylesheet" />
+@model Equipment
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div id="center">
+    <h2>Edit Equipment</h2>
+
+    <form asp-controller="Gym" asp-action="EditEquip" method="post">
+        <label asp-for="EquipmentID">ID: </label>
+        <input asp-for="EquipmentID" type="number" />
+        <br /><br />
+        <label asp-for="Name">Name: </label>
+        <select asp-for="Name" asp-items="WebApplication.Web.Models.Equipment.EquipmentCategories"></select>
+        <br /><br />
+        <label asp-for="NeedsMaintenance">Maintenance required: </label>
+        <input asp-for="NeedsMaintenance" type="checkbox" />
+        <br /><br />
+        <label asp-for="FormMedia">Role Category: </label>
+        <select asp-for="FormMedia" asp-items="WebApplication.Web.Models.Equipment.EquipmentCategories"></select>
+        <br /><br />
+        <label asp-for="Instructions">Instructions: </label>
+        <input asp-for="Instructions" type="text" />
+        <br /><br />
+        <input type="submit" value="Save" />
+    </form>
+    <form asp-controller="Gym" asp-action="RemoveEquipment" method="post">
+        <input asp-for="EquipmentID" value="@Model.EquipmentID" hidden="hidden" />
+        <input type="submit" value="Remove Equipment" />
+    </form>
+</div>
