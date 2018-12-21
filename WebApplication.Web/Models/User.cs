@@ -25,10 +25,6 @@ namespace WebApplication.Web.Models
         public string Salt { get; set; }
         
         public string Role { get; set; }
-
-        public string name { get; set; } 
-
-	    public string email { get; set; }
         
         public string Photo { get; set; }
 
@@ -36,13 +32,13 @@ namespace WebApplication.Web.Models
 
         public decimal GoalReps { get; set; }
 
-        public string workoutProfile { get; set; }
-
         public bool IsActive { get; set; }
 
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public string message { get; set; }
 
         public static List<SelectListItem> RoleCategories = new List<SelectListItem>()
         {

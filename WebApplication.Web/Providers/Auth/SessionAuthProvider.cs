@@ -54,6 +54,13 @@ namespace WebApplication.Web.Providers.Auth
 
             return false;
         }
+        public bool VerifyPassword(string username, string password)
+        {
+            User user = userDAL.GetUser(username);
+            HashProvider hashProvider = new HashProvider();
+
+            return hashProvider.VerifyPasswordMatch(user.Password, password, user.Salt);
+        }
 
         /// <summary>
         /// Logs the user out by clearing their session data.
@@ -114,21 +121,26 @@ namespace WebApplication.Web.Providers.Auth
         /// <param name="password"></param>
         /// <param name="role"></param>
         /// <returns></returns>
-        public void Register(string username, string password, string role)
+        public bool Register(string username, string password, string role)
         {
-            var hashProvider = new HashProvider();
-            var passwordHash = hashProvider.HashPassword(password);
-
-            var user = new User
+            if(userDAL.GetUser(username) == null)
             {
-                Username = username,
-                Password = passwordHash.Password,
-                Salt = passwordHash.Salt,
-                Role = role
-            };
+                var hashProvider = new HashProvider();
+                var passwordHash = hashProvider.HashPassword(password);
 
-            userDAL.CreateUser(user);
-            Session.SetString(SessionKey, user.Username);            
+                var user = new User
+                {
+                    Username = username,
+                    Password = passwordHash.Password,
+                    Salt = passwordHash.Salt,
+                    Role = role
+                };
+
+                userDAL.CreateUser(user);
+                Session.SetString(SessionKey, user.Username);
+                return true;
+            }
+            return false;                     
         }
 
         /// <summary>

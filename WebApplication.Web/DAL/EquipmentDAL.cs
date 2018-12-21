@@ -65,7 +65,7 @@ namespace WebApplication.Web.DAL
                 myConnection.Open();
                 output = myConnection.Query<Equipment>(SQL_LoginString, new DynamicParameters(dynamicParameterArgs)).ToList().FirstOrDefault();
                 //SqlCommand myCommand = new SqlCommand(SQL_LoginString, myConnection);
-
+                output.ImgMedia = output.Name;
             }
             return output;
         }
@@ -86,6 +86,7 @@ namespace WebApplication.Web.DAL
                     temp.Name = Convert.ToString(reader["name"]);
                     temp.NeedsMaintenance = Convert.ToBoolean(reader["needsMaintenance"]);
                     temp.FormMedia = Convert.ToString(reader["formMedia"]);
+                    temp.ImgMedia = temp.Name;
                     temp.Instructions = Convert.ToString(reader["instructions"]);
                     temp.IsActive = Convert.ToBoolean(reader["IsActive"]);
                     if (temp.IsActive)
@@ -127,12 +128,13 @@ namespace WebApplication.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("UPDATE equipment SET " +
-                        "name = @name, needsMaintenance = @needsMaintenance,  " +
+                        "name = @name, needsMaintenance = @needsMaintenance, formMedia = @formMedia,  " +
                         "instructions = @instruct WHERE equipmentId = @id;", conn);
                     cmd.Parameters.AddWithValue("@needsMaintenance", machine.NeedsMaintenance);
                     cmd.Parameters.AddWithValue("@instruct", machine.Instructions);
                     cmd.Parameters.AddWithValue("@name", machine.Name);
                     cmd.Parameters.AddWithValue("@id", machine.EquipmentID);
+                    cmd.Parameters.AddWithValue("@formMedia", machine.FormMedia);
 
                     cmd.ExecuteNonQuery();
 

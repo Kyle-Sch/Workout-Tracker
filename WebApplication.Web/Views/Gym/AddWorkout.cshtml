@@ -7,25 +7,25 @@
 
         <form asp-controller="Gym" asp-action="AddWorkout" method="post">
             <label asp-for="Name">Workout Name: </label>
-            <select asp-for="Name" asp-items="WebApplication.Web.Models.Workout.WorkoutNames"></select>
+            <select asp-for="Name" asp-items="WebApplication.Web.Models.Workout.WorkoutNames" style="color:black"></select>
             <br /><br />
             <label asp-for="Type">Workout Type: </label>
-            <select asp-for="Type" asp-items="WebApplication.Web.Models.Workout.WorkoutCategories"></select>
+            <select asp-for="Type" asp-items="WebApplication.Web.Models.Workout.WorkoutCategories" style="color:black"></select>
             <br /><br />
             <label asp-for="EquipmentID">Equipment used: </label>
-            <select asp-for="EquipmentID" asp-items="WebApplication.Web.Models.Equipment.EquipmentIds"></select>
+            <select asp-for="EquipmentID" asp-items="WebApplication.Web.Models.Equipment.EquipmentIds" style="color:black"></select>
             <br /><br />
             <label asp-for="startTime">Start Time: </label>
-            <input asp-for="startTime" type="time" />
+            <input asp-for="startTime" type="time" style="color:black" />
             <br /><br />
             <label asp-for="endTime">End Time: </label>
-            <input asp-for="endTime" type="time" />
+            <input asp-for="endTime" type="time" style="color:black" />
             <br /><br />
             <label asp-for="Weight">Weight: </label>
-            <input asp-for="Weight" type="number" />
+            <input asp-for="Weight" type="number" style="color:black" />
             <br /><br />
             <label asp-for="Reps">Reps/Distance in Miles: </label>
-            <input asp-for="Reps" type="number" />
+            <input asp-for="Reps" type="number" style="color:black" />
             <br /><br />
             <input asp-for="VisitID" value="@Model.VisitID" hidden="hidden" />
             <input asp-for="UserId" value="@Model.UserId" hidden="hidden" />

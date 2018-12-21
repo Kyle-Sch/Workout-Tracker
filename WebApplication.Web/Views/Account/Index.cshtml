@@ -4,18 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
-<p>Lorem ipsum</p>
-@{
-    if (Model != null)
-    {
-        <p>@Model.Username is logged in</p>
-    }
-    else
-    {
-        <p>No one is logged in</p>
-    }
-}
+<div class="welcome">
+    <div id="center" style="margin-left:20px; margin-right:20px">
+        <div>
+            @{
+                if (Model != null)
+                {
+                    <h4 style="margin-top:0px; padding-top:20px">Welcome, @Model.Username!</h4>
+                    <p>Refer to the navigation bar above to browse through the pages &uarr;</p>
+                }
+                else
+                {
+                    <h2 style="margin-top:0px; padding-top:15px">No one is logged in</h2>
+                    <p>Refer to the navigation bar above to register or log in &uarr;</p>
+                }
+            }
+        </div>
+    </div>
+</div>
 
 

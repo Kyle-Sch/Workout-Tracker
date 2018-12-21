@@ -27,19 +27,17 @@ CREATE TABLE users
 (
 	id				int				identity(1,1),
 	username		varchar(50)		not null,
+	firstname		varchar(50)     null,
+	lastname		varchar(50)		null,
 	password		varchar(50)		not null,
 	salt			varchar(50)		not null,
 	role			varchar(50)		default('member'),
-	name			varchar(50)		null,
-	email			varchar(50)		null,
 	photo			varchar(50)		null,
+	message			varchar(50)		null,
 	goalType		varchar(50)		null,
 	goalReps		decimal		 	null,
-	workoutProfile	varchar(50)		null,
 	isActive		bit				not null,
-	firstname		varchar(50)     null,
-	lastname		varchar(50)		null,
-
+	
 	constraint pk_users primary key (id)
 
 );
@@ -104,10 +102,11 @@ CREATE TABLE workoutClass
 
 );
 
-INSERT INTO users(username, password, salt, role, name, email, isActive) VALUES ('nico.cersosimo.22@gmail.com', '+Er1hpQ6dSYHBr/5pCATAWRYZrw=', 'cf5lC7Z2BwI=', 'admin', 'Nico', 'nico.cersosimo.22@gmail.com', 'true');
-INSERT INTO users(username, password, salt, role, name, email, isActive) VALUES ('kyle@gmail.com', '/+0ZwkaXvhuf3PmYCXWb3NR2GvE=', 'yxlgbG7QHVU=', 'admin', 'Kyle', 'kyle@gmail.com', 'true')
-INSERT INTO users(username, password, salt, role, isActive) VALUES ('yoyo@capstone.com', '+UZj/lwkPG3qge8CKWWb4eS+ED4=', 'mb1BEDO7+f0=', 'admin', 'true');
-INSERT INTO visit(memberId, isActive, arrival, departure) VALUES (3, 'true', '2018-12-15 12:00:00', '2018-12-16 12:00:00');
+INSERT INTO users(username, password, salt, role, isActive) VALUES ('nico.cersosimo.22@gmail.com', '+Er1hpQ6dSYHBr/5pCATAWRYZrw=', 'cf5lC7Z2BwI=', 'admin', 'true');
+INSERT INTO users(username, password, salt, role, isActive) VALUES ('kyle@gmail.com', '/+0ZwkaXvhuf3PmYCXWb3NR2GvE=', 'yxlgbG7QHVU=', 'admin', 'true')
+INSERT INTO users(username, password, salt, role, isActive) VALUES ('corey@gmail.com', 'Yc4ZnhSE2P+JlWh+4I+QgAL4DkA=', 'xkvCNtNX87c=', 'admin', 'true');
+INSERT INTO users(username, password, salt, role, isActive) VALUES ('yoyo@capstone.com', '4tDtPj2aDMrEzcvyMLng0EOSjEY=', 'bCfx1/0hs1M=', 'admin', 'true');
+INSERT INTO visit(memberId, isActive, arrival, departure) VALUES (3, 'true', '2018-12-15 12:00:00', '2018-12-16 00:00:00');
 INSERT INTO visit(memberId, isActive, arrival, departure) VALUES (3, 'true', '2018-12-15 12:00:00', '2018-12-15 12:30:00');
 INSERT INTO equipment VALUES ('Treadmill','Cardio','false','treadmill.jpg','Start the treadmill at a walking speed. Warmup with that speed or a slight-jogging pace for at least a minute, then begin your desired pace and time. While running, swing your arms rather than holding on to the arms to maintain proper running form. When finished, retract to the same speed you warmed up with for at least a minute or longer cooldown period.','true');
 INSERT INTO equipment VALUES ('Elliptical','Cardio','false','elliptical.jpg','Step onto the machine facing the monitor. Grab hold of the arms and begin pedaling to turn the machine on. Begin at little to no resistance for at least a minute to get warmed up, and then increase to desired resistance for your workout. Retract to the same amount of resistance as your warmup for the cooldown when finished, also for at least a minute. Never let go of arm handles while pedaling','true');

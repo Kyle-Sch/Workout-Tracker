@@ -38,5 +38,6 @@ namespace WebApplication.Web.DAL
         List<User> GetAllUser();
         List<User> GetUsersCheckedIn();
         List<User> GetUsersNotCheckedIn();
+        User GetUser(int id);
     }
 }

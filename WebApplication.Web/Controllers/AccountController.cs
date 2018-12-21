@@ -28,17 +28,16 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(User user)
         {
             string name = HttpContext.Session.Get<string>(USERNAMEKEY);
-            if (name == null || name == "")
+            if (name == null || name == "" )
             {
-                return View();
+                return View(user);
             }
             else
             {
-                User loggedInUser = userDAL.GetUserWithDapper(name);
-                return View(loggedInUser);
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -83,38 +82,43 @@ namespace WebApplication.Web.Controllers
 
         [HttpPost]
         public ActionResult<dynamic> Register(RegisterViewModel model)
-        {
-            LoginViewModel newLogin = new LoginViewModel();
-            newLogin.Email = model.Email;
-            newLogin.Password = model.Password;
-            AuthenticationController myAuthentication = new AuthenticationController(userDAL);
+        {                      
+            bool wasThereASuccessfulRegistration = authProvider.Register(model.Email, model.Password, "member");
 
-            NewUserModel newUser = new NewUserModel()
-            {
-                Username = model.Email,
-                Password = model.Password
-            };
-
-            var result = myAuthentication.Register(newUser);
             Message message = new Message();
-            if (result.Result.GetType() == typeof(Microsoft.AspNetCore.Mvc.OkResult))
+            if (wasThereASuccessfulRegistration)
             {
 
-                message.MyMessage = $"Congratulations! {newUser.Username} has been registered";
+                message.MyMessage = $"Congratulations! {model.Email} has been registered";
             }
             else
             {
                 message.MyMessage = "There was an error in registering you.";
+                return RedirectToAction("Feedback", message);
             }
 
             bool validLogin = authProvider.SignIn(model.Email, model.Password);
-            return RedirectToAction("Index", message);
+            if (!validLogin)
+            {
+
+                //userDAL.UpdateErrorMessage(message.MyMessage, userDAL.GetUserWithDapper(model.Email));
+                return RedirectToAction("Index", userDAL.GetUserWithDapper(model.Email));
+            }
+            else
+            {
+                return RedirectToAction("Index", message);
+            }
+            
         }
 
         [HttpGet]
         public IActionResult profile(Message message)
         {
             string newUser = HttpContext.Session.Get<string>(USERNAMEKEY);
+            if(newUser == null)
+            {
+                return RedirectToAction("Login");
+            }
             User valuedUser = userDAL.GetUser(newUser);
             valuedUser.Workouts = workoutDAL.GetWorkoutPerUser(valuedUser.Id);
             if (valuedUser.Workouts.Count > 0)
@@ -136,15 +140,50 @@ namespace WebApplication.Web.Controllers
         public IActionResult EditProfile(User editedUser)
         {
             userDAL.UpdateUser(editedUser);
+            if(editedUser.Username != HttpContext.Session.Get<string>(USERNAMEKEY))
+            {
+                HttpContext.Session.Set<string>(USERNAMEKEY, editedUser.Username);
+            }
             return RedirectToAction("Profile", "Account");
         }
-        [HttpPost]
-        public IActionResult RemoveProfile(User removed)
+        [HttpGet]
+        public IActionResult RemoveProfile()
         {
-
-            userDAL.DeleteUser(removed);
-            HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
+            return View();
+        }
+        [HttpGet]
+        public IActionResult AdminRemoveProfile(User model)
+        {
+            model = userDAL.GetUser(model.Id);
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult AdminRemoveUser(User toRemove)
+        {
+            User currentUser = authProvider.GetCurrentUser();
+            if(currentUser != null && currentUser.Role == "admin")
+            {
+                userDAL.DeleteUser(toRemove);
+                return RedirectToAction("Feedback", new Message("User removed"));
+            }
+            else
+            {
+                return RedirectToAction("Feedback", new Message("You don't have permission for that"));
+            }
+        }
+        [HttpPost]
+        public IActionResult RemoveProfile(User toRemove)
+        {
+            toRemove.Password = toRemove.Password == null ? "" : toRemove.Password;
+            string username = HttpContext.Session.Get<string>(USERNAMEKEY);
+            if(authProvider.VerifyPassword(username, toRemove.Password))
+            {
+                userDAL.DeleteUser(userDAL.GetUser(username));
+                HttpContext.Session.Clear();
+                return RedirectToAction("Feedback", new Message("Your profile was deleted"));
+            }
+            
+            return RedirectToAction("Feedback", new Message("Incorrect Password. Profile Deletion failed."));
         }
         public IActionResult UserList()
         {
@@ -184,11 +223,8 @@ namespace WebApplication.Web.Controllers
                 Salt = hashedPassword.Salt,
                 Username = newUser.Username,
                 Role = newUser.Role,
-                email = newUser.email,
-                name = newUser.name,
                 GoalType = newUser.GoalType,
                 GoalReps = newUser.GoalReps,
-                workoutProfile = newUser.workoutProfile,
                 Id = newUser.Id
 
             };

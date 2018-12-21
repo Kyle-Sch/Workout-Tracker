@@ -5,15 +5,13 @@
 @{
 }
 
-<div>
+<div style="text-align:center">
+    <h2>Employee Page</h2>
     <p>
-        @Model.MyMessage
+        <a asp-controller="Employee" asp-action="CheckInCheckOut">Check In/Out a Member by Email Address</a>
     </p>
+    <p>
+        <a asp-controller="Employee" asp-action="CheckMemberIn">Check In Members</a>
+    </p>
+    <p><a asp-controller="Employee" asp-action="CheckMemberOut">Check Out Member</a></p>
 </div>
-<div>
-    <a asp-controller="Employee" asp-action="CheckInCheckOut">Check In/Out a member</a>
-</div>
-<div>
-    <a asp-controller="Employee" asp-action="CheckMemberIn">Check In Members</a>
-</div>
-<div><a asp-controller="Employee" asp-action="CheckMemberOut">Check Out Member</a></div>

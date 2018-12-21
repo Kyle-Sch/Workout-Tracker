@@ -46,15 +46,15 @@
                             <div style="margin-bottom:10px">
                                 @visit.Arrival.DayOfWeek @visit.Arrival.Month/@visit.Arrival.Day
                                 @{
-                                    if (visit.Departure.Subtract(visit.Arrival).Days > 1)
+                                    if (visit.Departure.Subtract(visit.Arrival).Days >= 1)
                                     {
                                         <div>&nbsp;&nbsp;&nbsp;&nbsp;@visit.Departure.Subtract(visit.Arrival).Days Days</div>
                                     }
-                                    if (visit.Departure.Subtract(visit.Arrival).Hours > 1)
+                                    if (visit.Departure.Subtract(visit.Arrival).Hours >= 1)
                                     {
                                         <div>&nbsp;&nbsp;&nbsp;&nbsp;@visit.Departure.Subtract(visit.Arrival).Hours Hours</div>
                                     }
-                                    if (visit.Departure.Subtract(visit.Arrival).Minutes > 1)
+                                    if (visit.Departure.Subtract(visit.Arrival).Minutes >= 1)
                                     {
                                         <div>&nbsp;&nbsp;&nbsp;&nbsp;@visit.Departure.Subtract(visit.Arrival).Minutes Minutes</div>
                                     }

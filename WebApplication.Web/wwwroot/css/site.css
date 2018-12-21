@@ -40,3 +40,13 @@ body {
 .smallMargin{
     margin: 20px;
 }
+.minColumnWidth{
+    min-width:90px;
+}
+
+input{
+    color:black;
+}
+select{
+    color:black;
+}

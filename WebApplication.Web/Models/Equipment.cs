@@ -12,6 +12,15 @@ namespace WebApplication.Web.Models
         public string Name { get; set; }
         public bool NeedsMaintenance { get; set; }
         public string FormMedia { get; set; }
+        private string formMedia = "";
+        public string ImgMedia {
+            get {
+                return formMedia;
+            }
+            set {
+                formMedia = value.ToLower() + ".jpg";
+            }
+        }
         public string Instructions { get; set; }
         public bool IsActive { get; set; }
 

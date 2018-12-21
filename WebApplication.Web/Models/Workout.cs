@@ -35,7 +35,7 @@ namespace WebApplication.Web.Models
         {
             new SelectListItem() { Text = "Run in Miles", Value = "run" },
             new SelectListItem() { Text = "Push Ups", Value = "pushups" },
-            new SelectListItem() { Text = "Bench Press Reps of 125 lbs", Value = "benchpress" },
+            new SelectListItem() { Text = "Bench Press", Value = "benchpress" },
             new SelectListItem() { Text = "Leg Presses", Value = "legpress" },
             new SelectListItem() { Text = "Situps", Value = "situps" }
             };

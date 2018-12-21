@@ -103,18 +103,10 @@ namespace WebApplication.Web.DAL
                 {
                     conn.Open();
                     const string CmdText = "SELECT * FROM USERS WHERE username = @username;";
-                    // SqlCommand cmd = new SqlCommand(CmdText, conn);
-                    //cmd.Parameters.AddWithValue("@username", username);
                     Dictionary<string, object> dynamicParamterArgs = new Dictionary<string, object>();
                     dynamicParamterArgs.Add("@username", username);
 
                     user = conn.Query<User>(CmdText, new DynamicParameters(dynamicParamterArgs)).ToList().FirstOrDefault();
-                   // SqlDataReader reader = cmd.ExecuteReader();
-
-                    //if (reader.Read())
-                    //{
-                    //    user = MapRowToUser(reader);
-                    //}
 
                 }
 
@@ -128,17 +120,14 @@ namespace WebApplication.Web.DAL
         public User GetUserWithDapper(string userName)
         {
             User output = null;
-            HashProvider hashProvider = new HashProvider();
-
+            
             string SQL_String = @"Select TOP 1 * from users WHERE username = @username";
             Dictionary<string, object> dynamicParameterArgs = new Dictionary<string, object>();
             dynamicParameterArgs.Add("@username", userName);
-            //dynamicParameterArgs.Add("@password", hashedPassword.Password);
             using (SqlConnection myConnection = new SqlConnection(connectionString))
             {
                 myConnection.Open();
                 output = myConnection.Query<User>(SQL_String, new DynamicParameters(dynamicParameterArgs)).ToList().FirstOrDefault();
-
             }
             return output;
         }
@@ -149,7 +138,6 @@ namespace WebApplication.Web.DAL
 
             string SQL_String = @"Select * from users";
             Dictionary<string, object> dynamicParameterArgs = new Dictionary<string, object>();
-            //dynamicParameterArgs.Add("@password", hashedPassword.Password);
             using (SqlConnection myConnection = new SqlConnection(connectionString))
             {
                 myConnection.Open();
@@ -161,10 +149,7 @@ namespace WebApplication.Web.DAL
         
         public void UpdateUser(User user)
         {
-            user.name = user.name == null ? "" : user.name;
             user.GoalType = user.GoalType == null ? "" : user.GoalType;
-            user.workoutProfile = user.workoutProfile == null ? "" : user.workoutProfile;
-            user.email = user.email == null ? "" : user.email;
             user.Photo = user.Photo == null ? "default-user.jpg" : user.Photo;
             user.FirstName = user.FirstName == null ? "" : user.FirstName;
             user.LastName = user.LastName == null ? "" : user.LastName;
@@ -175,19 +160,16 @@ namespace WebApplication.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("UPDATE users SET password = @password, salt = @salt, " +
-                        "role = @role, email = @email, name = @name, photo = @photo, username = @username" +
+                        "role = @role, photo = @photo, username = @username" +
                         ", GoalType = @workoutgoals, goalreps = @goalreps, " +
                         " isActive = 1, firstname = @firstname, lastname = @lastname WHERE id = @id;", conn);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
                     cmd.Parameters.AddWithValue("@role", user.Role);
-                    cmd.Parameters.AddWithValue("@email", user.email);
-                    cmd.Parameters.AddWithValue("@name", user.name);
                     cmd.Parameters.AddWithValue("@photo", user.Photo);
                     cmd.Parameters.AddWithValue("@username", user.Username);
                     cmd.Parameters.AddWithValue("@workoutgoals", user.GoalType);
                     cmd.Parameters.AddWithValue("@goalreps", user.GoalReps);
-                    cmd.Parameters.AddWithValue("@workoutProfile", user.workoutProfile);
                     cmd.Parameters.AddWithValue("@id", user.Id);
                     cmd.Parameters.AddWithValue("@firstname", user.FirstName);
                     cmd.Parameters.AddWithValue("@lastname", user.LastName);
@@ -205,7 +187,8 @@ namespace WebApplication.Web.DAL
         public List<User> GetUsersNotCheckedIn()
         {
             List<User> users = new List<User>();
-            string SQL_SELECT_STRING = $"SELECT * FROM users WHERE id NOT IN (SELECT memberId FROM visit WHERE departure IS NULL);";
+            string SQL_SELECT_STRING = $"SELECT * FROM users WHERE id NOT IN (SELECT memberId FROM visit WHERE departure IS NULL)" +
+                $"ORDER BY lastname, username;";
 
             using(SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -218,7 +201,8 @@ namespace WebApplication.Web.DAL
         public List<User> GetUsersCheckedIn()
         {
             List<User> users = new List<User>();
-            string SQL_SELECT_STRING = $"SELECT * FROM users WHERE id IN (SELECT memberId FROM visit WHERE departure IS NULL);";
+            string SQL_SELECT_STRING = $"SELECT * FROM users WHERE id IN (SELECT memberId FROM visit " +
+                $"WHERE departure IS NULL) ORDER BY lastname, username;";
             using(SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -226,6 +210,19 @@ namespace WebApplication.Web.DAL
             }
             return users;
         }
+        public User GetUser(int id)
+        {
+            User output = new User();
+            string SQL_SELECT_STRING = $"SELECT * FROM users WHERE id = @id;";
+            Dictionary<string, object> dynamicParameterArgs = new Dictionary<string, object>();
+            dynamicParameterArgs.Add("@id", id);
 
+            using (SqlConnection myConnection = new SqlConnection(connectionString))
+            {
+                myConnection.Open();
+                output = myConnection.Query<User>(SQL_SELECT_STRING, new DynamicParameters(dynamicParameterArgs)).ToList().FirstOrDefault();
+            }
+            return output;
+        }
     }
 }

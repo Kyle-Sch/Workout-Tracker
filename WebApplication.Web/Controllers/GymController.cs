@@ -115,6 +115,8 @@ namespace WebApplication.Web.Controllers
 
         public IActionResult EditEquip(Equipment selectedEquip)
         {
+            selectedEquip.ImgMedia = selectedEquip.Name;
+            selectedEquip.FormMedia = selectedEquip.ImgMedia;
             equipmentDAL.UpdateEquipment(selectedEquip);
             return RedirectToAction("EquipList", "Gym");
         }

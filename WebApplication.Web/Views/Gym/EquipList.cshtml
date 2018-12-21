@@ -10,7 +10,6 @@
             {
                 <img style="width:25%;height:auto" src="~/images/@Model.EquipList[i].FormMedia" alt="User Photo" />
                 <p>Equipment Name: @Model.EquipList[i].Name</p>
-                <p>Equipment Id: @Model.EquipList[i].EquipmentID</p>
                 <p>Maintenance Required?: @Model.EquipList[i].NeedsMaintenance</p>
                 <p>Instructions: @Model.EquipList[i].Instructions</p>
                 <form asp-controller="Gym" asp-action="EquipmentDetail" method="post">
